@@ -17,6 +17,10 @@ ENTRY = (
 
 
 def main() -> None:
+    # Fail loudly instead of writing an entry the gate would reject:
+    # one line, 1-140 characters, not only whitespace.
+    if not 1 <= len(ENTRY) <= 140 or ENTRY.strip() == "" or "\n" in ENTRY:
+        raise SystemExit("entry must be one line of 1-140 characters")
     # The grader runs this as another user, so the output must be
     # world-readable. Never chmod /output itself: it is root-owned
     # and merely writable, so chmodding it raises PermissionError.
